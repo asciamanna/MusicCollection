@@ -92,28 +92,6 @@ namespace MusicCollection.Controllers {
       return View(album);
     }
 
-    //
-    // GET: /Album/Delete/5
-
-    public ActionResult Delete(long id = 0) {
-      Album album = db.Albums.Find(id);
-      if (album == null) {
-        return HttpNotFound();
-      }
-      return View(album);
-    }
-
-    //
-    // POST: /Album/Delete/5
-
-    [HttpPost, ActionName("Delete")]
-    public ActionResult DeleteConfirmed(long id) {
-      Album album = db.Albums.Find(id);
-      db.Albums.Remove(album);
-      db.SaveChanges();
-      return RedirectToAction("Index");
-    }
-
     protected override void Dispose(bool disposing) {
       db.Dispose();
       base.Dispose(disposing);
