@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MusicCollection.Models.Album>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container">
+    <ul class="thumbnails">
+        @foreach (var item in Model) {     
+            <li class="span3 thumbnail">
+                <a href="#modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" data-toggle="modal">
+                    <img src="@Html.DisplayFor(model => item.ArtworkLocation)" width="180" height="180"/>
+                </a>
+                <div id="modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h3>@Html.DisplayFor(model => item.Artist)</h3>
+                                    <p>@Html.DisplayFor(model => item.Name)</p>
+                                </td>
+                                <td>
+                                    <img src="@Html.DisplayFor(model => item.ArtworkLocation)" width="60" height="60"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td><strong>@Html.DisplayNameFor(model => model.Year)</strong></td>
+                                <td class="table-data">@Html.DisplayFor(model => item.Year)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>@Html.DisplayNameFor(model => model.Genre)</strong></td>
+                                <td class="table-data">@Html.DisplayFor(model => item.Genre)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>@Html.DisplayNameFor(model => model.PlayCount)</strong></td>
+                                <td class="table-data">@Html.DisplayFor(model => item.PlayCount)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>@Html.DisplayNameFor(model => model.LastPlayed)</strong></td>
+                                <td class="table-data">@Html.DisplayFor(model => item.LastPlayed)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>@Html.DisplayNameFor(model => model.DateAdded)</strong></td>
+                                <td class="table-data">@Html.DisplayFor(model => item.DateAdded)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a data-dismiss="modal" class="btn">Close</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+<div class="pagination pagination-centered">
+    <ul>
+        <li><a href="#" data-currentpage="@ViewBag.Page">Prev</a></li>
+        @foreach (var page in Enumerable.Range(1, ViewBag.NumberOfPages)) {
+            <li><a href="Album?page=@page" data-currentpage="@ViewBag.Page" id="page_@page">@page</a></li>
+        }
+        <li><a href="#" data-currentpage="@ViewBag.Page">Next</a></li>
+    </ul>
+</div>

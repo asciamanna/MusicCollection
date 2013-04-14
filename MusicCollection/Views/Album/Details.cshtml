@@ -1,0 +1,78 @@
+﻿@model MusicCollection.Models.Album
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Album</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Artist)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Artist)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AlbumArtist)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AlbumArtist)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Genre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Genre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Year)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Year)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PlayCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PlayCount)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateAdded)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateAdded)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastPlayed)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastPlayed)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ArtworkLocation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ArtworkLocation)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AlbumID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
