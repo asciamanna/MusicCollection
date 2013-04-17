@@ -1,5 +1,6 @@
 *.exe
 *.pdb
 *.suo
+*.sdf
 bin/
 obj/
