@@ -163,7 +163,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\Music.sdf" />
     <Content Include="Content\musiccollection.css" />
     <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Global.asax.cs">
@@ -325,6 +324,7 @@
     <Content Include="Views\Album\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
