@@ -4,8 +4,8 @@
         var anchor = $(element).children('a').first();
         var current_page = anchor.data('currentpage');
 
-        if (anchor.html() === "Prev") {
-            if (current_page === "1") {
+        if (anchor.html() == "Prev") {
+            if (current_page == "1") {
                 $(element).addClass("disabled");
             }
             else {
@@ -13,12 +13,12 @@
             }
         }
         
-        if (current_page === anchor.html()) {
+        if (current_page == anchor.html()) {
             $(element).addClass("active");
         }
 
-        if (anchor.html() === "Next") {
-            if (current_page === num_pages) {
+        if (anchor.html() == "Next") {
+            if (current_page == num_pages) {
                 $(element).addClass("disabled");
             }
             else {
@@ -27,6 +27,8 @@
         }
 
     });
+
+    $('#navbar').affix();
 });
 
 //$('#albumArtworkCarousel').bind('slid', function () {
