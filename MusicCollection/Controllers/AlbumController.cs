@@ -9,7 +9,7 @@ using MusicCollection.Models;
 
 namespace MusicCollection.Controllers {
   public class AlbumController : Controller {
-    MusicEntities db = new MusicEntities();
+    MusicDbContext db = new MusicDbContext();
     const int resultsPerPage = 56;
 
     //

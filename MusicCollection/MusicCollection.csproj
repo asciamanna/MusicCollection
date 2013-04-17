@@ -168,25 +168,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Album.cs">
-      <DependentUpon>Music.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AlbumPartial.cs" />
-    <Compile Include="Models\Music.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Music.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Music.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Music.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Music.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Music.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Album.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -252,24 +234,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <EntityDeploy Include="Models\Music.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Music.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="Images\album-art-missing.png" />
-    <Content Include="Models\Music.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Music.edmx</DependentUpon>
-      <LastGenOutput>Music.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Music.edmx.diagram">
-      <DependentUpon>Music.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\Music.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Music.edmx</DependentUpon>
-      <LastGenOutput>Music.cs</LastGenOutput>
-    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
