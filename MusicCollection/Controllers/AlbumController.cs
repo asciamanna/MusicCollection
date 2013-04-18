@@ -22,12 +22,16 @@ namespace MusicCollection.Controllers {
       var albumsByArtist = db.Albums.OrderBy(a => a.Artist).ThenBy(a => a.Year)
                               .Skip(resultsPerPage * (page - 1)).Take(resultsPerPage);
 
+      SetMissingArtworkImage(albumsByArtist);
+      return View(albumsByArtist.ToList());
+    }
+
+    void SetMissingArtworkImage(IQueryable<Album> albumsByArtist) {
       foreach (var album in albumsByArtist) {
         if (string.IsNullOrEmpty(album.ArtworkLocation) || album.ArtworkLocation.Contains("noimage")) {
           album.ArtworkLocation = Url.Encode("Images/album-art-missing.png");
         }
       }
-      return View(albumsByArtist.ToList());
     }
 
     int CalculateNumberOfPages(int totalAlbums) {
