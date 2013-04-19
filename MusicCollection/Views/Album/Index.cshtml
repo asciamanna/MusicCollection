@@ -1,21 +1,30 @@
-﻿@model IEnumerable<MusicCollection.Models.Album>
+﻿@using MusicCollection.Models
+@model IEnumerable<Album>
+
+@functions {
+    string FormatUrl(int page, SortType sortType) {
+        return string.Format("Album?page={0}&sortType={1}", page, sortType);
+    }
+}
 
 <div class="navbar navbar-fixed-top navbar-inverse" data-spy="affix">
     <div class="navbar-inner">
         <a class="brand" href="#">Music Collection</a>
         <ul class="nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Sort By
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Artist Name</a></li>
-                     <li><a href="#">Release Year</a></li>
-                    <li><a href="#">Last Played</a></li>
-                    <li><a href="#">Last Added</a></li>
+                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.ArtistName)" class="dropdown-item">Artist Name</a></li>
+                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.ReleaseYear)" class="dropdown-item">Release Year</a></li>
+                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.LastPlayed)" class="dropdown-item">Last Played</a></li>
+                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.LastAdded)" class="dropdown-item">Last Added</a></li>
                 </ul>
             </li>
+            <li>
+            <p class="navbar-text">@ViewBag.SortType</p>
+                </li>
         </ul>
     </div>
 </div>

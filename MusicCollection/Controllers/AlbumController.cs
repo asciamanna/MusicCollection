@@ -15,15 +15,41 @@ namespace MusicCollection.Controllers {
     //
     // GET: /Album/
 
-    public ActionResult Index(int page = 1) {
+    public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName) {
       ViewBag.NumberOfPages = CalculateNumberOfPages(db.Albums.Count());
       ViewBag.Page = page;
+      ViewBag.SortType = sortType.ToFriendlyName();
 
-      var albumsByArtist = db.Albums.OrderBy(a => a.Artist).ThenBy(a => a.Year)
-                              .Skip(resultsPerPage * (page - 1)).Take(resultsPerPage);
+      var albumResults = SortAlbums(page, sortType);
 
-      SetMissingArtworkImage(albumsByArtist);
-      return View(albumsByArtist.ToList());
+      SetMissingArtworkImage(albumResults);
+      return View(albumResults.ToList());
+    }
+
+    IQueryable<Album> SortAlbums(int page, SortType sortType) {
+      IOrderedQueryable<Album> sortedAlbums;
+      switch (sortType) {
+        case SortType.ArtistName: {
+            sortedAlbums = db.Albums.OrderBy(a => a.Artist).ThenBy(a => a.Year);
+            break;
+          }
+        case SortType.ReleaseYear: {
+            sortedAlbums = db.Albums.OrderBy(a => a.Year);
+            break;
+          }
+        case SortType.LastAdded: {
+            sortedAlbums = db.Albums.OrderByDescending(a => a.DateAdded);
+            break;
+          }
+        case SortType.LastPlayed: {
+            sortedAlbums = db.Albums.OrderByDescending(a => a.LastPlayed);
+            break;
+          }
+        default: {
+            throw new ArgumentException("Unknown sort type");
+          }
+      }
+      return sortedAlbums.Skip(resultsPerPage * (page - 1)).Take(resultsPerPage);
     }
 
     void SetMissingArtworkImage(IQueryable<Album> albumsByArtist) {
