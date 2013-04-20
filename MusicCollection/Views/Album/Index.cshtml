@@ -23,7 +23,7 @@
                 </ul>
             </li>
             <li>
-            <p class="navbar-text">@ViewBag.SortType</p>
+            <p class="navbar-text">@ViewBag.FriendlySortType</p>
                 </li>
         </ul>
     </div>
@@ -82,10 +82,10 @@
 </div>
 <div class="pagination pagination-centered">
     <ul>
-        <li><a href="#" data-currentpage="@ViewBag.Page">Prev</a></li>
+        <li><a href="#" id="previous-page" data-currentpage="@ViewBag.Page" data-currentsort="@ViewBag.SortType">Prev</a></li>
         @foreach (var page in Enumerable.Range(1, ViewBag.NumberOfPages)) {
-            <li><a href="Album?page=@page" data-currentpage="@ViewBag.Page" id="page_@page">@page</a></li>
+            <li><a href="Album?page=@page&sortType=@ViewBag.SortType" data-currentpage="@ViewBag.Page" id="page_@page">@page</a></li>
         }
-        <li><a href="#" data-currentpage="@ViewBag.Page">Next</a></li>
+        <li><a href="#" id="next-page" data-currentpage="@ViewBag.Page" data-currentsort="@ViewBag.SortType">Next</a></li>
     </ul>
 </div>

@@ -18,7 +18,8 @@ namespace MusicCollection.Controllers {
     public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName) {
       ViewBag.NumberOfPages = CalculateNumberOfPages(db.Albums.Count());
       ViewBag.Page = page;
-      ViewBag.SortType = sortType.ToFriendlyName();
+      ViewBag.FriendlySortType = sortType.ToFriendlyName();
+      ViewBag.SortType = sortType;
 
       var albumResults = SortAlbums(page, sortType);
 
