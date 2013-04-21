@@ -29,12 +29,4 @@
     });
 
     $('.navbar').affix();
-    
-    //$('.dropdown-item').on('click', function () {
-    //    var sort = $(this).data('selected-sort');
-    //    $("a[id$='-page']").each(function () {
-    //        var href = $(this).attr("href");
-    //        $(this).attr("href", href + "&sortType=" + sort);
-    //    });
-    //});
 });
