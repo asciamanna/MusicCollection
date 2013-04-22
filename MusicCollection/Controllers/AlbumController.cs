@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MusicCollection.Models;
+using MusicCollection.ViewModels;
 
 namespace MusicCollection.Controllers {
   public class AlbumController : Controller {
@@ -24,7 +25,15 @@ namespace MusicCollection.Controllers {
       var albumResults = SortAlbums(page, sortType);
 
       SetMissingArtworkImage(albumResults);
-      return View(albumResults.ToList());
+      var viewModel = new AlbumIndexViewModel {
+        Albums = albumResults.ToList(),
+        CurrentPage = page,
+        CurrentSortType = sortType,
+        FriendlySortType = sortType.ToFriendlyName(),
+        NumberOfPages = CalculateNumberOfPages(db.Albums.Count())
+      };
+
+      return View(viewModel);
     }
 
     IQueryable<Album> SortAlbums(int page, SortType sortType) {

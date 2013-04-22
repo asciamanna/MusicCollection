@@ -1,5 +1,7 @@
-﻿@using MusicCollection.Models
-@model IEnumerable<Album>
+﻿@using MusicCollection.ViewModels;
+@using MusicCollection.Models;
+
+@model AlbumIndexViewModel
 
 @functions {
     string FormatUrl(int page, SortType sortType) {
@@ -16,21 +18,21 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.ArtistName)" class="dropdown-item">Artist Name</a></li>
-                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.ReleaseYear)" class="dropdown-item">Release Year</a></li>
-                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.LastPlayed)" class="dropdown-item">Last Played</a></li>
-                    <li><a href="@FormatUrl(@ViewBag.Page, SortType.LastAdded)" class="dropdown-item">Last Added</a></li>
+                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.ArtistName)" class="dropdown-item">Artist Name</a></li>
+                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.ReleaseYear)" class="dropdown-item">Release Year</a></li>
+                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.LastPlayed)" class="dropdown-item">Last Played</a></li>
+                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.LastAdded)" class="dropdown-item">Last Added</a></li>
                 </ul>
             </li>
             <li>
-            <p class="navbar-text">@ViewBag.FriendlySortType</p>
+            <p class="navbar-text">@Model.FriendlySortType</p>
                 </li>
         </ul>
     </div>
 </div>
 <div class="container">
     <ul class="thumbnails">
-        @foreach (var item in Model) {     
+        @foreach (var item in Model.Albums) {     
             <li class="span3 thumbnail">
                 <a href="#modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" data-toggle="modal">
                     <img src="@Html.DisplayFor(model => item.ArtworkLocation)" width="180" height="180"/>
@@ -51,23 +53,23 @@
                     <div class="modal-body">
                         <table>
                             <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Year)</strong></td>
+                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().Year)</strong></td>
                                 <td class="table-data">@Html.DisplayFor(model => item.Year)</td>
                             </tr>
                             <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Genre)</strong></td>
+                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().Genre)</strong></td>
                                 <td class="table-data">@Html.DisplayFor(model => item.Genre)</td>
                             </tr>
                             <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.PlayCount)</strong></td>
+                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().PlayCount)</strong></td>
                                 <td class="table-data">@Html.DisplayFor(model => item.PlayCount)</td>
                             </tr>
                             <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.LastPlayed)</strong></td>
+                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().LastPlayed)</strong></td>
                                 <td class="table-data">@Html.DisplayFor(model => item.LastPlayed)</td>
                             </tr>
                             <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.DateAdded)</strong></td>
+                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().DateAdded)</strong></td>
                                 <td class="table-data">@Html.DisplayFor(model => item.DateAdded)</td>
                             </tr>
                         </table>
@@ -82,10 +84,10 @@
 </div>
 <div class="pagination pagination-centered">
     <ul>
-        <li><a href="#" id="previous-page" data-currentpage="@ViewBag.Page" data-currentsort="@ViewBag.SortType">Prev</a></li>
-        @foreach (var page in Enumerable.Range(1, ViewBag.NumberOfPages)) {
-            <li><a href="Album?page=@page&sortType=@ViewBag.SortType" data-currentpage="@ViewBag.Page" id="page_@page">@page</a></li>
+        <li><a href="#" id="previous-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Prev</a></li>
+        @foreach (var page in Enumerable.Range(1, Model.NumberOfPages)) {
+            <li><a href="Album?page=@page&sortType=@Model.CurrentSortType" data-currentpage="@Model.CurrentPage" id="page_@page">@page</a></li>
         }
-        <li><a href="#" id="next-page" data-currentpage="@ViewBag.Page" data-currentsort="@ViewBag.SortType">Next</a></li>
+        <li><a href="#" id="next-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Next</a></li>
     </ul>
 </div>
