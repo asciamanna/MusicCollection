@@ -17,7 +17,8 @@ namespace MusicCollection.Controllers {
     // GET: /Album/
 
     public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName) {
-      ViewBag.NumberOfPages = CalculateNumberOfPages(db.Albums.Count());
+      var numberOfAlbums = db.Albums.Count();
+      ViewBag.NumberOfPages = CalculateNumberOfPages(numberOfAlbums);
       ViewBag.Page = page;
       ViewBag.FriendlySortType = sortType.ToFriendlyName();
       ViewBag.SortType = sortType;
@@ -30,7 +31,8 @@ namespace MusicCollection.Controllers {
         CurrentPage = page,
         CurrentSortType = sortType,
         FriendlySortType = sortType.ToFriendlyName(),
-        NumberOfPages = CalculateNumberOfPages(db.Albums.Count())
+        NumberOfPages = CalculateNumberOfPages(numberOfAlbums),
+        AlbumCount = numberOfAlbums,
       };
 
       return View(viewModel);
