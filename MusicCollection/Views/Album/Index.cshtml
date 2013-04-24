@@ -27,6 +27,13 @@
             <li>
                 <p class="navbar-text">@Model.FriendlySortType</p>
             </li>
+            <li>
+                <form method="get" class="navbar-search search-input">
+                    <input type="text" class="search-query" placeholder="Search By Artist" name="filter" />
+                    <input type="hidden" name="page" value="@Model.CurrentPage" />
+                    <input type="hidden" name="sortType" value="@Model.CurrentSortType" />
+                </form>
+            </li>
         </ul>
         <p class="navbar-text pull-right">Albums: @Model.AlbumCount</p>
     </div>
@@ -83,12 +90,17 @@
         }
     </ul>
 </div>
-<div class="pagination pagination-centered">
-    <ul>
-        <li><a href="#" id="previous-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Prev</a></li>
-        @foreach (var page in Enumerable.Range(1, Model.NumberOfPages)) {
-            <li><a href="Album?page=@page&sortType=@Model.CurrentSortType" data-currentpage="@Model.CurrentPage" id="page_@page">@page</a></li>
-        }
-        <li><a href="#" id="next-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Next</a></li>
-    </ul>
-</div>
+@if (Model.NumberOfPages == 0) {
+    <p class="not-found-text">No Albums found</p>
+}
+@if (Model.NumberOfPages > 1) {
+    <div class="pagination pagination-centered">
+        <ul>
+            <li><a href="#" id="previous-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Prev</a></li>
+            @foreach (var page in Enumerable.Range(1, Model.NumberOfPages)) {
+                <li><a href="Album?page=@page&sortType=@Model.CurrentSortType" data-currentpage="@Model.CurrentPage" id="page_@page">@page</a></li>
+            }
+            <li><a href="#" id="next-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Next</a></li>
+        </ul>
+    </div>
+}

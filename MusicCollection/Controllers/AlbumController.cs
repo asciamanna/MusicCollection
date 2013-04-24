@@ -16,14 +16,10 @@ namespace MusicCollection.Controllers {
     //
     // GET: /Album/
 
-    public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName) {
-      var numberOfAlbums = db.Albums.Count();
-      ViewBag.NumberOfPages = CalculateNumberOfPages(numberOfAlbums);
-      ViewBag.Page = page;
-      ViewBag.FriendlySortType = sortType.ToFriendlyName();
-      ViewBag.SortType = sortType;
-
-      var albumResults = SortAlbums(page, sortType);
+    public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName, string filter = "") {
+      var filteredAlbums = FilterAlbumsByArtist(filter);
+      var numberOfAlbums = filteredAlbums.Count();
+      var albumResults = SortAlbums(page, sortType, filteredAlbums);
 
       SetMissingArtworkImage(albumResults);
       var viewModel = new AlbumIndexViewModel {
@@ -38,23 +34,30 @@ namespace MusicCollection.Controllers {
       return View(viewModel);
     }
 
-    IQueryable<Album> SortAlbums(int page, SortType sortType) {
-      IOrderedQueryable<Album> sortedAlbums;
+    List<Album> FilterAlbumsByArtist(string artistFilter) {
+      if (!string.IsNullOrWhiteSpace(artistFilter)) {
+        return db.Albums.Where(a => a.Artist.Contains(artistFilter)).ToList();
+      }
+      return db.Albums.ToList();
+    }
+
+    IEnumerable<Album> SortAlbums(int page, SortType sortType, List<Album> albums) {
+      IOrderedEnumerable<Album> sortedAlbums;
       switch (sortType) {
         case SortType.ArtistName: {
-            sortedAlbums = db.Albums.OrderBy(a => a.Artist).ThenBy(a => a.Year);
+            sortedAlbums = albums.OrderBy(a => a.Artist).ThenBy(a => a.Year);
             break;
           }
         case SortType.ReleaseYear: {
-            sortedAlbums = db.Albums.OrderBy(a => a.Year);
+            sortedAlbums = albums.OrderBy(a => a.Year);
             break;
           }
         case SortType.LastAdded: {
-            sortedAlbums = db.Albums.OrderByDescending(a => a.DateAdded);
+            sortedAlbums = albums.OrderByDescending(a => a.DateAdded);
             break;
           }
         case SortType.LastPlayed: {
-            sortedAlbums = db.Albums.OrderByDescending(a => a.LastPlayed);
+            sortedAlbums = albums.OrderByDescending(a => a.LastPlayed);
             break;
           }
         default: {
@@ -64,7 +67,7 @@ namespace MusicCollection.Controllers {
       return sortedAlbums.Skip(resultsPerPage * (page - 1)).Take(resultsPerPage);
     }
 
-    void SetMissingArtworkImage(IQueryable<Album> albumsByArtist) {
+    void SetMissingArtworkImage(IEnumerable<Album> albumsByArtist) {
       foreach (var album in albumsByArtist) {
         if (string.IsNullOrEmpty(album.ArtworkLocation) || album.ArtworkLocation.Contains("noimage")) {
           album.ArtworkLocation = Url.Encode("Images/album-art-missing.png");

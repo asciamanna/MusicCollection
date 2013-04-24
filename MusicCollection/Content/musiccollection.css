@@ -35,6 +35,14 @@ body {
     padding-top: 65px; /* ensure body doesn't interfere with navbar */
 }
 
+.search-input {
+    padding-left: 5px;
+}
+
+.not-found-text {
+    text-align: center;
+}
+
 /*Thumbnail Support*/
 /*.span3:nth-child(5) {
 	clear: left;
