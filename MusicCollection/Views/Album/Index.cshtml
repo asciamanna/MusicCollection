@@ -5,7 +5,7 @@
 
 @functions {
     string FormatUrl(int page, SortType sortType) {
-        return string.Format("Album?page={0}&sortType={1}", page, sortType);
+       return string.Format("Album?page={0}&sortType={1}", page, sortType);
     }
 }
 
@@ -30,17 +30,16 @@
             <li>
                 <form method="get" class="navbar-search search-input">
                     <input type="text" class="search-query" placeholder="Search By Artist" name="filter" />
-                    <input type="hidden" name="page" value="@Model.CurrentPage" />
                     <input type="hidden" name="sortType" value="@Model.CurrentSortType" />
                 </form>
             </li>
         </ul>
-        <p class="navbar-text pull-right">Albums: @Model.AlbumCount</p>
+        <p class="navbar-text pull-right">@Html.Raw(string.IsNullOrEmpty(Model.CurrentFilter) ? Model.AlbumCount + " Albums" : Model.AlbumCount + " Albums for " + Model.CurrentFilter)</p>
     </div>
 </div>
 <div class="container">
     <ul class="thumbnails">
-        @foreach (var item in Model.Albums) {     
+        @foreach (var item in Model.Albums) {    
             <li class="span3 thumbnail">
                 <a href="#modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" data-toggle="modal">
                     <img src="@Html.DisplayFor(model => item.ArtworkLocation)" width="180" height="180"/>

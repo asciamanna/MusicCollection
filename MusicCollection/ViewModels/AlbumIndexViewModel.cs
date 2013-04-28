@@ -12,5 +12,6 @@ namespace MusicCollection.ViewModels {
     public int NumberOfPages { get; set; }
     public SortType CurrentSortType { get; set; }
     public string FriendlySortType { get; set; }
+    public string CurrentFilter { get; set; }
   }
 }

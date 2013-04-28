@@ -29,6 +29,7 @@ namespace MusicCollection.Controllers {
         FriendlySortType = sortType.ToFriendlyName(),
         NumberOfPages = CalculateNumberOfPages(numberOfAlbums),
         AlbumCount = numberOfAlbums,
+        CurrentFilter = filter,
       };
 
       return View(viewModel);
