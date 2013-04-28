@@ -12,8 +12,8 @@ namespace MusicCollection {
 
       routes.MapRoute(
           name: "Default",
-          url: "{controller}/{action}/{page}",
-          defaults: new { controller = "Album", action = "Index", page = UrlParameter.Optional }
+          url: "{controller}/{action}",
+          defaults: new { controller = "Album", action = "Index" }
       );
     }
   }

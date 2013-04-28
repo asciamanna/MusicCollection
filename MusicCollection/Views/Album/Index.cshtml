@@ -5,7 +5,7 @@
 
 @functions {
     string FormatUrl(int page, SortType sortType) {
-       return string.Format("Album?page={0}&sortType={1}", page, sortType);
+        return string.Format("Album?page={0}&sortType={1}", page, sortType);
     }
 }
 
@@ -18,10 +18,10 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.ArtistName)" class="dropdown-item">Artist Name</a></li>
-                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.ReleaseYear)" class="dropdown-item">Release Year</a></li>
-                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.LastPlayed)" class="dropdown-item">Last Played</a></li>
-                    <li><a href="@FormatUrl(@Model.CurrentPage, SortType.LastAdded)" class="dropdown-item">Last Added</a></li>
+                    <li>@Html.ActionLink("Artist Name", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ArtistName }, new { @class = "dropdown-item" }) </li>
+                    <li>@Html.ActionLink("Release Year", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ReleaseYear }, new { @class = "dropdown-item" }) </li>
+                    <li>@Html.ActionLink("Last Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastPlayed }, new { @class = "dropdown-item" }) </li>
+                    <li>@Html.ActionLink("Last Added", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastAdded }, new { @class = "dropdown-item" }) </li>
                 </ul>
             </li>
             <li>
