@@ -3,12 +3,6 @@
 
 @model AlbumIndexViewModel
 
-@functions {
-    string FormatUrl(int page, SortType sortType) {
-        return string.Format("Album?page={0}&sortType={1}", page, sortType);
-    }
-}
-
 <div class="navbar navbar-fixed-top navbar-inverse" data-spy="affix">
     <div class="navbar-inner">
         <a class="brand" href="#">Music Collection</a>
