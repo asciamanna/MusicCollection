@@ -5,7 +5,7 @@
 
 <div class="navbar navbar-fixed-top navbar-inverse" data-spy="affix">
     <div class="navbar-inner">
-        <a class="brand" href="#">Music Collection</a>
+        @Html.ActionLink("Music Collection", "Index", "Album", null, new { @class = "brand" })
         <ul class="nav">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By
@@ -91,8 +91,9 @@
         <ul>
             <li><a href="#" id="previous-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Prev</a></li>
             @foreach (var page in Enumerable.Range(1, Model.NumberOfPages)) {
-                <li><a href="Album?page=@page&sortType=@Model.CurrentSortType" data-currentpage="@Model.CurrentPage" id="page_@page">@page</a></li>
+               <li> @Html.ActionLink(page.ToString(), "Index", "Album", new { page = page, sortType = Model.CurrentSortType }, new { id = "page_" + page, data_currentpage=Model.CurrentPage}) </li>
             }
+
             <li><a href="#" id="next-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Next</a></li>
         </ul>
     </div>
