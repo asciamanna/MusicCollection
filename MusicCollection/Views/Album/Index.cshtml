@@ -33,9 +33,9 @@
 </div>
 <div class="container">
     <ul class="thumbnails">
-        @foreach (var item in Model.Albums) {    
+        @foreach (var item in Model.Albums) {   
             <li class="span3 thumbnail">
-                <a href="#modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" data-toggle="modal">
+                <a href="#modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" data-toggle="modal" title="@HttpUtility.HtmlDecode(item.Artist + " - " + item.Name)">
                     <img src="@Html.DisplayFor(model => item.ArtworkLocation)" width="180" height="180"/>
                 </a>
                 <div id="modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
