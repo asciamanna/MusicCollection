@@ -27,10 +27,6 @@ table td, table th
     padding: 5px; /* 'cellpadding' equivalent */
 }
 
-/*navbar .nav > li {
-z-index: 10000;
-}*/
-
 body { 
     padding-top: 65px; /* ensure body doesn't interfere with navbar */
 }
@@ -42,8 +38,3 @@ body {
 .not-found-text {
     text-align: center;
 }
-
-/*Thumbnail Support*/
-/*.span3:nth-child(5) {
-	clear: left;
-}*/
