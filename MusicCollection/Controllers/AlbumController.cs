@@ -23,8 +23,8 @@ namespace MusicCollection.Controllers {
     //
     // GET: /Album/
 
-    public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName, string artistName = "") {
-      var filteredAlbums = albumRepository.FindAlbumsByArtist(artistName, sortType);
+    public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName, string filter = "") {
+      var filteredAlbums = albumRepository.FindAlbumsByArtist(filter, sortType);
       var numberOfAlbums = filteredAlbums.Count();
 
       SetMissingArtworkImage(filteredAlbums);
@@ -36,7 +36,7 @@ namespace MusicCollection.Controllers {
         FriendlySortType = sortType.ToFriendlyName(),
         NumberOfPages = CalculateNumberOfPages(numberOfAlbums),
         AlbumCount = numberOfAlbums,
-        CurrentFilter = artistName,
+        CurrentFilter = filter,
       };
 
       return View(viewModel);

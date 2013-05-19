@@ -5,6 +5,7 @@
 
 <div class="navbar navbar-fixed-top navbar-inverse" data-spy="affix">
     <div class="navbar-inner">
+        <div class="container">
         @Html.ActionLink("Music Collection", "Index", "Album", null, new { @class = "brand" })
         <ul class="nav">
             <li class="dropdown">
@@ -31,6 +32,7 @@
         </ul>
         <p class="navbar-text pull-right">@Html.Raw(string.IsNullOrEmpty(Model.CurrentFilter) ? Model.AlbumCount + " Albums" : Model.AlbumCount + " Albums for " + Model.CurrentFilter)</p>
     </div>
+        </div>
 </div>
 <div class="container">
     <ul class="thumbnails">
