@@ -15,6 +15,7 @@
                     <li>@Html.ActionLink("Artist Name", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ArtistName }, new { @class = "dropdown-item" }) </li>
                     <li>@Html.ActionLink("Release Year", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ReleaseYear }, new { @class = "dropdown-item" }) </li>
                     <li>@Html.ActionLink("Last Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastPlayed }, new { @class = "dropdown-item" }) </li>
+                    <li>@Html.ActionLink("Most Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.MostPlayed }, new { @class = "dropdown-item" }) </li>
                     <li>@Html.ActionLink("Last Added", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastAdded }, new { @class = "dropdown-item" }) </li>
                 </ul>
             </li>
@@ -91,7 +92,7 @@
         <ul>
             <li><a href="#" id="previous-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Prev</a></li>
             @foreach (var page in Enumerable.Range(1, Model.NumberOfPages)) {
-               <li> @Html.ActionLink(page.ToString(), "Index", "Album", new { page = page, sortType = Model.CurrentSortType }, new { id = "page_" + page, data_currentpage=Model.CurrentPage}) </li>
+                <li>@Html.ActionLink(page.ToString(), "Index", "Album", new { page = page, sortType = Model.CurrentSortType }, new { id = "page_" + page, data_currentpage = Model.CurrentPage }) </li>
             }
 
             <li><a href="#" id="next-page" data-currentpage="@Model.CurrentPage" data-currentsort="@Model.CurrentSortType">Next</a></li>

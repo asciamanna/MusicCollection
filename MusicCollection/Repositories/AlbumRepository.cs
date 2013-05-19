@@ -37,6 +37,10 @@ namespace MusicCollection.Repositories {
             sortedAlbums = albums.OrderByDescending(a => a.LastPlayed);
             break;
           }
+        case SortType.MostPlayed: {
+            sortedAlbums = albums.OrderByDescending(a => a.PlayCount);
+            break;
+          }
         default: {
             throw new ArgumentException("Unknown sort type");
           }

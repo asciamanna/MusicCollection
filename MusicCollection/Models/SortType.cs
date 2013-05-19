@@ -8,6 +8,7 @@ namespace MusicCollection.Models {
     ArtistName,
     ReleaseYear,
     LastPlayed,
-    LastAdded,
+    MostPlayed,
+    LastAdded
   }
 }
