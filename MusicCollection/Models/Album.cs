@@ -32,6 +32,7 @@ namespace MusicCollection.Models {
 
   public class MusicDbContext : DbContext {
     public DbSet<Album> Albums { get; set; }
+    public DbSet<AlbumTrack> Tracks { get; set; }
     protected override void OnModelCreating(DbModelBuilder modelBuilder) {
       modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
     }
