@@ -59,9 +59,5 @@ namespace MusicCollection.Controllers {
       if (totalAlbums % resultsPerPage != 0) pages++;
       return pages;
     }
-
-    protected override void Dispose(bool disposing) {
-      base.Dispose(disposing);
-    }
   }
 }

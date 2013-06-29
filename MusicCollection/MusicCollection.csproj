@@ -163,6 +163,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\AlbumTrack.cs" />
     <Compile Include="Repositories\AlbumRepository.cs" />
     <Compile Include="ViewModels\AlbumIndexViewModel.cs" />
     <Content Include="Content\musiccollection.css" />

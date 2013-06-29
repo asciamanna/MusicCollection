@@ -27,6 +27,7 @@ namespace MusicCollection.Models {
     public DateTime? LastPlayed { get; set; }
     [DisplayName("Artwork Location")]
     public string ArtworkLocation { get; set; }
+    public List<AlbumTrack> Tracks { get; set; }
   }
 
   public class MusicDbContext : DbContext {

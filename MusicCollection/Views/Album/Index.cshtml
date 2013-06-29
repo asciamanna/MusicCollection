@@ -6,33 +6,33 @@
 <div class="navbar navbar-fixed-top navbar-inverse" data-spy="affix">
     <div class="navbar-inner">
         <div class="container">
-        @Html.ActionLink("Music Collection", "Index", "Album", null, new { @class = "brand" })
-        <ul class="nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By
+            @Html.ActionLink("Music Collection", "Index", "Album", null, new { @class = "brand" })
+            <ul class="nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By
                     <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Artist Name", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ArtistName }, new { @class = "dropdown-item" }) </li>
-                    <li>@Html.ActionLink("Release Year", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ReleaseYear }, new { @class = "dropdown-item" }) </li>
-                    <li>@Html.ActionLink("Last Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastPlayed }, new { @class = "dropdown-item" }) </li>
-                    <li>@Html.ActionLink("Most Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.MostPlayed }, new { @class = "dropdown-item" }) </li>
-                    <li>@Html.ActionLink("Last Added", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastAdded }, new { @class = "dropdown-item" }) </li>
-                </ul>
-            </li>
-            <li>
-                <p class="navbar-text">@Model.FriendlySortType</p>
-            </li>
-            <li>
-                <form method="get" class="navbar-search search-input">
-                    <input type="text" class="search-query" placeholder="Search By Artist" name="filter" />
-                    <input type="hidden" name="sortType" value="@Model.CurrentSortType" />
-                </form>
-            </li>
-        </ul>
-        <p class="navbar-text pull-right">@Html.Raw(string.IsNullOrEmpty(Model.CurrentFilter) ? Model.AlbumCount + " Albums" : Model.AlbumCount + " Albums for " + Model.CurrentFilter)</p>
-    </div>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Artist Name", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ArtistName }, new { @class = "dropdown-item" }) </li>
+                        <li>@Html.ActionLink("Release Year", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.ReleaseYear }, new { @class = "dropdown-item" }) </li>
+                        <li>@Html.ActionLink("Last Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastPlayed }, new { @class = "dropdown-item" }) </li>
+                        <li>@Html.ActionLink("Most Played", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.MostPlayed }, new { @class = "dropdown-item" }) </li>
+                        <li>@Html.ActionLink("Last Added", "Index", "Album", new { page = Model.CurrentPage, sortType = SortType.LastAdded }, new { @class = "dropdown-item" }) </li>
+                    </ul>
+                </li>
+                <li>
+                    <p class="navbar-text">@Model.FriendlySortType</p>
+                </li>
+                <li>
+                    <form method="get" class="navbar-search search-input">
+                        <input type="text" class="search-query" placeholder="Search By Artist" name="filter" />
+                        <input type="hidden" name="sortType" value="@Model.CurrentSortType" />
+                    </form>
+                </li>
+            </ul>
+            <p class="navbar-text pull-right">@Html.Raw(string.IsNullOrEmpty(Model.CurrentFilter) ? Model.AlbumCount + " Albums" : Model.AlbumCount + " Albums for " + Model.CurrentFilter)</p>
         </div>
+    </div>
 </div>
 <div class="container">
     <ul class="thumbnails">
@@ -43,40 +43,49 @@
                 </a>
                 <div id="modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-header">
-                        <table>
-                            <tr>
-                                <td>
-                                    <h3>@Html.DisplayFor(model => item.Artist)</h3>
-                                    <p>@Html.DisplayFor(model => item.Name)</p>
-                                </td>
-                                <td>
-                                    <img src="@Html.DisplayFor(model => item.ArtworkLocation)" width="60" height="60"/></td>
-                            </tr>
-                        </table>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <h3>@Html.DisplayFor(model => item.Artist)</h3>
+                                <p>@Html.DisplayFor(model => item.Name)</p>
+                            </div>
+                            <div>
+                                <img class="pull-right" src="@Html.DisplayFor(model => item.ArtworkLocation)" width="60" height="60" />
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-body">
-                        <table>
-                            <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().Year)</strong></td>
-                                <td class="table-data">@Html.DisplayFor(model => item.Year)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().Genre)</strong></td>
-                                <td class="table-data">@Html.DisplayFor(model => item.Genre)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().PlayCount)</strong></td>
-                                <td class="table-data">@Html.DisplayFor(model => item.PlayCount)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().LastPlayed)</strong></td>
-                                <td class="table-data">@Html.DisplayFor(model => item.LastPlayed)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>@Html.DisplayNameFor(model => model.Albums.First().DateAdded)</strong></td>
-                                <td class="table-data">@Html.DisplayFor(model => item.DateAdded)</td>
-                            </tr>
-                        </table>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                @foreach (var track in item.Tracks) {
+                                    @HttpUtility.HtmlDecode(track.TrackNumber + ". " + track.Name + " (" + track.PlayingTime + ")"); 
+                                    <br /> 
+                                }
+                            </div>
+                            <div class="span6">
+                                <table>
+                                    <tr>
+                                        <td><strong>@Html.DisplayNameFor(model => model.Albums.First().Year)</strong></td>
+                                        <td class="table-data">@Html.DisplayFor(model => item.Year)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>@Html.DisplayNameFor(model => model.Albums.First().Genre)</strong></td>
+                                        <td class="table-data">@Html.DisplayFor(model => item.Genre)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>@Html.DisplayNameFor(model => model.Albums.First().PlayCount)</strong></td>
+                                        <td class="table-data">@Html.DisplayFor(model => item.PlayCount)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>@Html.DisplayNameFor(model => model.Albums.First().LastPlayed)</strong></td>
+                                        <td class="table-data">@Html.DisplayFor(model => item.LastPlayed)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>@Html.DisplayNameFor(model => model.Albums.First().DateAdded)</strong></td>
+                                        <td class="table-data">@Html.DisplayFor(model => item.DateAdded)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <a data-dismiss="modal" class="btn">Close</a>

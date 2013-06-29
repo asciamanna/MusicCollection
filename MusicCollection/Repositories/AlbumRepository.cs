@@ -13,7 +13,9 @@ namespace MusicCollection.Repositories {
     public List<Album> FindAlbumsByArtist(string artistName, SortType sortType) {
       var foundAlbums = new List<Album>();
       using (var db = new MusicDbContext()) {
-        foundAlbums = String.IsNullOrWhiteSpace(artistName) ? db.Albums.ToList() : db.Albums.Where(a => a.Artist.Contains(artistName)).ToList();
+        var albums = db.Albums.Include("Tracks");
+        foundAlbums = String.IsNullOrWhiteSpace(artistName) ? albums.ToList() : albums.Where(a => a.Artist.Contains(artistName)).ToList();
+        foundAlbums.ForEach(a => a.Tracks = a.Tracks.OrderBy(t => t.TrackNumber).ToList());
       }
       return SortAlbums(sortType, foundAlbums);
     }
