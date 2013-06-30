@@ -44,12 +44,12 @@
                 <div id="modalAlbumDetails_@Html.DisplayFor(model => item.AlbumID)" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-header">
                         <div class="row-fluid">
-                            <div class="span6">
+                            <div class="span9">
                                 <h3>@Html.DisplayFor(model => item.Artist)</h3>
                                 <p>@Html.DisplayFor(model => item.Name)</p>
                             </div>
-                            <div>
-                                <img class="pull-right" src="@Html.DisplayFor(model => item.ArtworkLocation)" style="height:70px; width: 70px;" />
+                            <div class="span3">
+                                <img class="pull-right" src="@Html.DisplayFor(model => item.ArtworkLocation)" style="height:80px; width: 80px;" />
                             </div>
                         </div>
                     </div>
