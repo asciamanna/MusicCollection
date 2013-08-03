@@ -11,7 +11,6 @@ using MusicCollection.Repositories;
 
 namespace MusicCollection.Controllers {
   public class AlbumController : Controller {
-    const int resultsPerPage = 56;
     readonly IAlbumRepository albumRepository;
 
     public AlbumController() : this(new AlbumRepository()) { }
@@ -24,26 +23,19 @@ namespace MusicCollection.Controllers {
     // GET: /Album/
 
     public ActionResult Index(int page = 1, SortType sortType = SortType.ArtistName, string filter = "") {
-      var filteredAlbums = albumRepository.FindAlbumsByArtist(filter, sortType);
-      var numberOfAlbums = filteredAlbums.Count();
-
+      var filteredAlbums = albumRepository.FindAlbumsByArtist(filter, sortType, page);
       SetMissingArtworkImage(filteredAlbums);
 
       var viewModel = new AlbumIndexViewModel {
-        Albums = PageAlbums(filteredAlbums, page),
+        Albums = filteredAlbums,
         CurrentPage = page,
         CurrentSortType = sortType,
         FriendlySortType = sortType.ToFriendlyName(),
-        NumberOfPages = CalculateNumberOfPages(numberOfAlbums),
-        AlbumCount = numberOfAlbums,
+        NumberOfPages = albumRepository.PagesOfAlbums(),
+        AlbumCount = String.IsNullOrWhiteSpace(filter) ? albumRepository.AlbumCount() : filteredAlbums.Count(),
         CurrentFilter = filter,
       };
-
       return View(viewModel);
-    }
-
-    List<Album> PageAlbums(List<Album> filteredAlbums, int page) {
-      return filteredAlbums.Skip(resultsPerPage * (page - 1)).Take(resultsPerPage).ToList();
     }
 
     void SetMissingArtworkImage(IEnumerable<Album> albumsByArtist) {
@@ -52,12 +44,6 @@ namespace MusicCollection.Controllers {
           album.ArtworkLocation = Url.Encode("Images/album-art-missing.png");
         }
       }
-    }
-
-    int CalculateNumberOfPages(int totalAlbums) {
-      var pages = totalAlbums / resultsPerPage;
-      if (totalAlbums % resultsPerPage != 0) pages++;
-      return pages;
     }
   }
 }

@@ -3,51 +3,83 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity.Infrastructure;
 
 namespace MusicCollection.Repositories {
   public interface IAlbumRepository {
-    List<Album> FindAlbumsByArtist(string artistName, SortType sortType);
+    List<Album> FindAlbumsByArtist(string artistName, SortType sortType, int page);
+    int AlbumCount();
+    int PagesOfAlbums();
   }
 
   public class AlbumRepository : IAlbumRepository {
-    public List<Album> FindAlbumsByArtist(string artistName, SortType sortType) {
-      var foundAlbums = new List<Album>();
-      using (var db = new MusicDbContext()) {
-        var albums = db.Albums.Include("Tracks");
-        foundAlbums = String.IsNullOrWhiteSpace(artistName) ? albums.ToList() : albums.Where(a => a.Artist.Contains(artistName)).ToList();
-        foundAlbums.ForEach(a => a.Tracks = a.Tracks.OrderBy(t => t.TrackNumber).ToList());
+    const int resultsPerPage = 44;
+
+    int? numberOfAlbums;
+
+    int NumberOfAlbums {
+      get {
+        if (!numberOfAlbums.HasValue) {
+          using (var context = new MusicDbContext()) {
+            numberOfAlbums = context.Albums.Count();
+          }
+        }
+        return numberOfAlbums.Value;
       }
-      return SortAlbums(sortType, foundAlbums);
     }
 
-    List<Album> SortAlbums(SortType sortType, List<Album> albums) {
-      IOrderedEnumerable<Album> sortedAlbums;
+    public List<Album> FindAlbumsByArtist(string artistName, SortType sortType, int page) {
+      using (var db = new MusicDbContext()) {
+        var query = db.Albums.Include("Tracks");
+        var queryByArtist = String.IsNullOrWhiteSpace(artistName) ? query.AsQueryable<Album>() : query.Where(a => a.Artist.Contains(artistName));
+        var pagedQuery = PageAlbums(SortAlbums(sortType, queryByArtist), page);
+
+        return pagedQuery.ToList();
+      }
+    }
+
+    IOrderedQueryable<Album> SortAlbums(SortType sortType, IQueryable<Album> albumsQuery) {
+      IOrderedQueryable<Album> sortedAlbumsQuery;
       switch (sortType) {
         case SortType.ArtistName: {
-            sortedAlbums = albums.OrderBy(a => a.Artist).ThenBy(a => a.Year);
+            sortedAlbumsQuery = albumsQuery.OrderBy(a => a.Artist).ThenBy(a => a.Year);
             break;
           }
         case SortType.ReleaseYear: {
-            sortedAlbums = albums.OrderBy(a => a.Year);
+            sortedAlbumsQuery = albumsQuery.OrderBy(a => a.Year);
             break;
           }
         case SortType.LastAdded: {
-            sortedAlbums = albums.OrderByDescending(a => a.DateAdded);
+            sortedAlbumsQuery = albumsQuery.OrderByDescending(a => a.DateAdded);
             break;
           }
         case SortType.LastPlayed: {
-            sortedAlbums = albums.OrderByDescending(a => a.LastPlayed);
+            sortedAlbumsQuery = albumsQuery.OrderByDescending(a => a.LastPlayed);
             break;
           }
         case SortType.MostPlayed: {
-            sortedAlbums = albums.OrderByDescending(a => a.PlayCount);
+            sortedAlbumsQuery = albumsQuery.OrderByDescending(a => a.PlayCount);
             break;
           }
         default: {
             throw new ArgumentException("Unknown sort type");
           }
       }
-      return sortedAlbums.ToList();
+      return sortedAlbumsQuery;
+    }
+
+    IQueryable<Album> PageAlbums(IOrderedQueryable<Album> query, int page) {
+      return query.Skip(resultsPerPage * (page - 1)).Take(resultsPerPage);
+    }
+
+    public int AlbumCount() {
+      return NumberOfAlbums;
+    }
+
+    public int PagesOfAlbums() {
+      var pages = NumberOfAlbums / resultsPerPage;
+      if (NumberOfAlbums % resultsPerPage != 0) pages++;
+      return pages;
     }
   }
 }
