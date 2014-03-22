@@ -13,7 +13,7 @@ namespace MusicCollection.Repositories {
   }
 
   public class AlbumRepository : IAlbumRepository {
-    const int resultsPerPage = 44;
+    const int resultsPerPage = 52;
 
     int? numberOfAlbums;
 
@@ -32,8 +32,9 @@ namespace MusicCollection.Repositories {
       using (var db = new MusicDbContext()) {
         var query = db.Albums.Include("Tracks");
         var queryByArtist = String.IsNullOrWhiteSpace(artistName) ? query.AsQueryable<Album>() : query.Where(a => a.Artist.Contains(artistName));
+        numberOfAlbums = queryByArtist.Count();
         var pagedQuery = PageAlbums(SortAlbums(sortType, queryByArtist), page);
-
+      
         return pagedQuery.ToList();
       }
     }
