@@ -17,6 +17,14 @@
     width: 180px;
     max-width: 180px;
 }
+.thumbnails {
+    text-align:center !important;
+}
+
+.thumbnails > li {
+    display: inline-block !important;
+    float: none !important; 
+}
 
 .table-data {
     text-align: right;
