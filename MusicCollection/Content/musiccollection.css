@@ -21,6 +21,10 @@
     text-align:center !important;
 }
 
+.modal-body {
+    text-align: left !important;
+}
+
 .thumbnails > li {
     display: inline-block !important;
     float: none !important; 
